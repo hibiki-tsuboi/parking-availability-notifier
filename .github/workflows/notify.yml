@@ -1,0 +1,50 @@
+name: Check parking availability
+
+on:
+  schedule:
+    - cron: "0 * * * *" # 毎時
+  workflow_dispatch: {}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore state cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/state.json
+          key: parking-notifier-state
+          restore-keys: |
+            parking-notifier-state-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run notifier
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          TARGET_CONFIG: config/targets.json
+          STATE_FILE: data/state.json
+          PLAYWRIGHT_HEADLESS: "true"
+        run: node --loader ts-node/esm src/index.ts
+
+      - name: Save state cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/state.json
+          key: parking-notifier-state-${{ github.run_id }}

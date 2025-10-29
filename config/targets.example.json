@@ -1,0 +1,20 @@
+{
+  "targets": [
+    {
+      "parking_id": "example-lot",
+      "url": "https://example.com/parking/calendar",
+      "date": "2025-11-01",
+      "selectors": {
+        "available": ".calendar .day[data-date='{{date}}'].available",
+        "full": ".calendar .day[data-date='{{date}}'].full"
+      },
+      "textHints": {
+        "available": ["空き", "空車", "available"],
+        "full": ["満車", "予約不可", "full"]
+      },
+      "waitUntil": "load",
+      "waitForSelector": ".calendar"
+    }
+  ]
+}
+
