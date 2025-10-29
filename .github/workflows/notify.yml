@@ -2,7 +2,7 @@ name: Check parking availability
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # 5分毎
+    - cron: "0 * * * *" # 1時間毎
   workflow_dispatch: {}
 
 jobs:
