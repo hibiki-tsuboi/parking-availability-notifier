@@ -34,6 +34,11 @@
 - 実行: `node --loader ts-node/esm src/index.ts`
 - 動作: 要素IDの class を解析し、満車/空車いずれも「初回＋変化時」に Slack 通知（同一ステータスは重複抑止）
 
+### 状態ファイル（data/state.json）について
+- 目的: 前回通知したステータスを保持し、同一ステータスの重複通知を防ぐため
+- 無効化したい場合: `.env` に `DISABLE_STATE=true` を設定（読み書きしません）
+- 毎回通知したい場合: `.env` に `NOTIFY_ALWAYS=true` を設定（unknown以外は常に通知）
+
 ## GitHub Actions（スケジュール実行）
 - リポジトリ Secrets に `SLACK_WEBHOOK_URL` を登録
 - ワークフロー: `.github/workflows/notify.yml`（毎時）

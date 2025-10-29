@@ -6,7 +6,7 @@ import { markNotified, readState, shouldNotify, writeState } from "./state.js";
 async function main() {
   const env = loadEnv();
   const app = loadTargets(env.targetConfigPath);
-  const state = readState(env.stateFile);
+  const state = env.disableState ? { lastNotified: {} } : readState(env.stateFile);
 
   let notifiedCount = 0;
 
@@ -32,7 +32,11 @@ async function main() {
     }
   }
 
-  writeState(env.stateFile, state);
+  if (!env.disableState) {
+    writeState(env.stateFile, state);
+  } else {
+    console.log("state disabled: not saving data/state.json");
+  }
   console.log(`done. notified=${notifiedCount}`);
 }
 

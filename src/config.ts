@@ -19,6 +19,10 @@ const envSchema = z.object({
     .optional()
     .transform((v) => (v ?? "false").toLowerCase() === "true"),
   SLACK_MENTION_ID: z.string().optional(),
+  DISABLE_STATE: z
+    .string()
+    .optional()
+    .transform((v) => (v ?? "false").toLowerCase() === "true"),
 });
 
 export function loadEnv(): EnvConfig {
@@ -38,6 +42,7 @@ export function loadEnv(): EnvConfig {
     headless: parsed.PLAYWRIGHT_HEADLESS as boolean,
     notifyAlways: parsed.NOTIFY_ALWAYS as boolean,
     slackMention: normalizeMention(parsed.SLACK_MENTION_ID),
+    disableState: parsed.DISABLE_STATE as boolean,
   };
 }
 
