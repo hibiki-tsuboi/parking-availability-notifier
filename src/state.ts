@@ -21,10 +21,11 @@ export function writeState(filePath: string, state: StateSnapshot): void {
   fs.writeFileSync(filePath, JSON.stringify(state, null, 2));
 }
 
-export function shouldNotify(state: StateSnapshot, key: string, status: Status): boolean {
+export function shouldNotify(state: StateSnapshot, key: string, status: Status, opts?: { always?: boolean }): boolean {
   const prev = state.lastNotified[key]?.status;
   // 通知ポリシー: 満車/空車のいずれも通知し、同一ステータスは重複抑止。unknown は通知しない。
   if (status === "unknown") return false;
+  if (opts?.always) return true;
   return prev !== status;
 }
 

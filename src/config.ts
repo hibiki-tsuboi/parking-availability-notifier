@@ -14,6 +14,10 @@ const envSchema = z.object({
     .string()
     .optional()
     .transform((v) => (v ?? "true").toLowerCase() !== "false"),
+  NOTIFY_ALWAYS: z
+    .string()
+    .optional()
+    .transform((v) => (v ?? "false").toLowerCase() === "true"),
 });
 
 export function loadEnv(): EnvConfig {
@@ -23,6 +27,7 @@ export function loadEnv(): EnvConfig {
     targetConfigPath: parsed.TARGET_CONFIG,
     stateFile: parsed.STATE_FILE,
     headless: parsed.PLAYWRIGHT_HEADLESS as boolean,
+    notifyAlways: parsed.NOTIFY_ALWAYS as boolean,
   };
 }
 

@@ -33,6 +33,7 @@ export interface EnvConfig {
   stateFile: string;
   targetConfigPath: string;
   headless: boolean;
+  notifyAlways: boolean;
 }
 
 export interface StateSnapshot {

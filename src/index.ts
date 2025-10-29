@@ -14,7 +14,7 @@ async function main() {
     const status = await checkAvailability(t, { headless: env.headless });
     const key = `${t.parking_id}|${t.date}`;
 
-    if (shouldNotify(state, key, status)) {
+    if (shouldNotify(state, key, status, { always: env.notifyAlways })) {
       const jp = status === "full" ? "満車" : status === "available" ? "空車" : "不明";
       const emoji = status === "full" ? ":x:" : status === "available" ? ":white_check_mark:" : ":question:";
       const msg = [
