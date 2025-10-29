@@ -18,7 +18,7 @@ async function main() {
       const jp = status === "full" ? "満車" : status === "available" ? "空車" : "不明";
       const emoji = status === "full" ? ":x:" : status === "available" ? ":white_check_mark:" : ":question:";
       const msg = [
-        "<@U80KNCCE5>",
+        env.slackMention ?? undefined,
         `ステータス: ${emoji} ${jp}`,
         `日付: ${t.date}`,
         `URL: ${t.url}`,

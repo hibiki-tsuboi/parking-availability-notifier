@@ -34,6 +34,7 @@ export interface EnvConfig {
   targetConfigPath: string;
   headless: boolean;
   notifyAlways: boolean;
+  slackMention: string | null;
 }
 
 export interface StateSnapshot {

@@ -18,16 +18,26 @@ const envSchema = z.object({
     .string()
     .optional()
     .transform((v) => (v ?? "false").toLowerCase() === "true"),
+  SLACK_MENTION_ID: z.string().optional(),
 });
 
 export function loadEnv(): EnvConfig {
   const parsed = envSchema.parse(process.env);
+  const normalizeMention = (v?: string): string | null => {
+    if (!v) return null;
+    const s = v.trim();
+    if (!s) return null;
+    if (/^<@[^>]+>$/.test(s)) return s;
+    if (/^[A-Za-z][A-Za-z0-9]+$/.test(s)) return `<@${s}>`;
+    return s;
+  };
   return {
     slackWebhookUrl: parsed.SLACK_WEBHOOK_URL,
     targetConfigPath: parsed.TARGET_CONFIG,
     stateFile: parsed.STATE_FILE,
     headless: parsed.PLAYWRIGHT_HEADLESS as boolean,
     notifyAlways: parsed.NOTIFY_ALWAYS as boolean,
+    slackMention: normalizeMention(parsed.SLACK_MENTION_ID),
   };
 }
 

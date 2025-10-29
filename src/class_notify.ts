@@ -44,8 +44,16 @@ async function run() {
     const isFull = (info.className || "").toLowerCase().includes("full");
     const statusJp = isFull ? "満車" : "空車";
     const emoji = isFull ? ":x:" : ":white_check_mark:";
+    const mentionRaw = process.env.SLACK_MENTION_ID?.trim();
+    const mention = mentionRaw
+      ? /^<@[^>]+>$/.test(mentionRaw)
+        ? mentionRaw
+        : /^[A-Za-z][A-Za-z0-9]+$/.test(mentionRaw)
+        ? `<@${mentionRaw}>`
+        : mentionRaw
+      : undefined;
     const text = [
-      "<@U80KNCCE5>",
+      mention,
       `ステータス: ${emoji} ${statusJp}`,
       `日付: ${id.split("-").slice(2).join("-")}`,
       `URL: ${url}`,

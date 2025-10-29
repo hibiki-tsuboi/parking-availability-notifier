@@ -7,7 +7,8 @@
 
 ## 使い方（ローカル）
 - 依存インストール: `npm ci`
-- 設定: `cp configs/env/.env.example .env` を作成し、`SLACK_WEBHOOK_URL` を設定
+- 設定: `cp configs/env/.env.example .env` を作成し、`SLACK_WEBHOOK_URL` を設定（必要なら `PLAYWRIGHT_HEADLESS=false`）
+- メンション設定: `SLACK_MENTION_ID` に `<@UXXXX>` または `UXXXX` を指定可
 - ターゲット: `config/targets.json` を `config/targets.example.json` から作成・編集
 - 実行: `node --loader ts-node/esm src/index.ts`
 
