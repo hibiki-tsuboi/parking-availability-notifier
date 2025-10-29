@@ -3,7 +3,7 @@
     {
       "parking_id": "hnd-lot",
       "url": "https://hnd-rsv.aeif.or.jp/airport2/app/toppage",
-      "date": "2025-11-01",
+      "date": "2025-10-31",
       "elementIdTemplate": "0-0-{{date}}",
       "elementIdDateStyle": "slash",
       "waitUntil": "domcontentloaded"
