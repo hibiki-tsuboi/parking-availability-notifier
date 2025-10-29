@@ -41,8 +41,19 @@ async function run() {
       throw new Error(`ID='${id}' の要素が見つかりませんでした`);
     }
 
-    const statusJp = (info.className || "").toLowerCase().includes("full") ? "満車" : "空車";
-    const text = `カレンダー要素の判定\nURL: ${url}\nID: ${id}\nステータス: ${statusJp}\nclass: ${info.className || "(empty)"}${info.text ? `\ntext: ${info.text}` : ""}`;
+    const isFull = (info.className || "").toLowerCase().includes("full");
+    const statusJp = isFull ? "満車" : "空車";
+    const emoji = isFull ? ":x:" : ":white_check_mark:";
+    const text = [
+      "<@U80KNCCE5>",
+      `ステータス: ${emoji} ${statusJp}`,
+      `日付: ${id.split("-").slice(2).join("-")}`,
+      `URL: ${url}`,
+      `class: ${info.className || "(empty)"}`,
+      info.text ? `text: ${info.text}` : undefined,
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     await notifySlack(webhook, text);
     console.log("sent class info to Slack:", info);

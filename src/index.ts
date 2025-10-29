@@ -16,7 +16,13 @@ async function main() {
 
     if (shouldNotify(state, key, status)) {
       const jp = status === "full" ? "満車" : status === "available" ? "空車" : "不明";
-      const msg = `駐車場: ${t.parking_id}\n日付: ${t.date}\nステータス: ${jp} (${status})\nURL: ${t.url}`;
+      const emoji = status === "full" ? ":x:" : status === "available" ? ":white_check_mark:" : ":question:";
+      const msg = [
+        "<@U80KNCCE5>",
+        `ステータス: ${emoji} ${jp}`,
+        `日付: ${t.date}`,
+        `URL: ${t.url}`,
+      ].join("\n");
       await notifySlack(env.slackWebhookUrl, msg);
       markNotified(state, key, status);
       notifiedCount += 1;
