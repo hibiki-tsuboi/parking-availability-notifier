@@ -1,20 +1,16 @@
 {
   "targets": [
     {
-      "parking_id": "example-lot",
-      "url": "https://example.com/parking/calendar",
+      "parking_id": "hnd-lot",
+      "url": "https://hnd-rsv.aeif.or.jp/airport2/app/toppage",
       "date": "2025-11-01",
-      "selectors": {
-        "available": ".calendar .day[data-date='{{date}}'].available",
-        "full": ".calendar .day[data-date='{{date}}'].full"
+      "elementIdTemplate": "0-0-{{date}}",
+      "elementIdDateStyle": "slash",
+      "classHints": {
+        "available": ["open", "vacant", "空き", "空車"],
+        "full": ["full", "close", "満車", "予約不可"]
       },
-      "textHints": {
-        "available": ["空き", "空車", "available"],
-        "full": ["満車", "予約不可", "full"]
-      },
-      "waitUntil": "load",
-      "waitForSelector": ".calendar"
+      "waitUntil": "domcontentloaded"
     }
   ]
 }
-

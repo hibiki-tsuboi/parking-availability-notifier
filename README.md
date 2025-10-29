@@ -17,6 +17,22 @@
 - 実行: `npm run notify:title`（または `node --loader ts-node/esm src/title_notify.ts https://hnd-rsv.aeif.or.jp/airport2/app/toppage`）
 - 期待動作: 指定ページへアクセスし、タイトル文字列を Slack に送信
 
+### 指定ID要素の class を通知
+- `.env` の `CALENDAR_CELL_ID` を設定（例: `0-0-2025/11/01`）
+- 実行: `npm run notify:class`
+  - もしくはIDとURLを引数指定: `node --loader ts-node/esm src/class_notify.ts 0-0-2025/11/01 https://hnd-rsv.aeif.or.jp/airport2/app/toppage`
+- 期待動作: 指定IDの要素をDOMから取得し、class属性（とテキスト）をSlackに送信
+
+### 本実装（例: HND サイト）
+- `config/targets.json` 例（`config/targets.example.json` をコピーして編集）
+  - `url`: `https://hnd-rsv.aeif.or.jp/airport2/app/toppage`
+  - `date`: `YYYY-MM-DD` 形式
+  - `elementIdTemplate`: `0-0-{{date}}`
+  - `elementIdDateStyle`: `slash`（`YYYY/MM/DD` へ変換して埋め込み）
+  - `classHints`: クラス名に含まれる語で available/full を判定
+- 実行: `node --loader ts-node/esm src/index.ts`
+- 動作: 要素IDの class を解析して available の場合のみ Slack 通知（重複抑止）
+
 ## GitHub Actions（スケジュール実行）
 - リポジトリ Secrets に `SLACK_WEBHOOK_URL` を登録
 - ワークフロー: `.github/workflows/notify.yml`（毎時）

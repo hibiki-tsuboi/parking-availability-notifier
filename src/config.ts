@@ -44,6 +44,14 @@ const targetSchema: z.ZodType<TargetConfig> = z.object({
       full: z.array(z.string()).optional(),
     })
     .optional(),
+  elementIdTemplate: z.string().optional(),
+  elementIdDateStyle: z.enum(["dash", "slash"]).optional(),
+  classHints: z
+    .object({
+      available: z.array(z.string()).optional(),
+      full: z.array(z.string()).optional(),
+    })
+    .optional(),
   waitUntil: z.enum(["load", "domcontentloaded", "networkidle"]).optional(),
   waitForSelector: z.string().optional(),
 });
@@ -58,4 +66,3 @@ export function loadTargets(configPath: string): AppConfig {
   const json = JSON.parse(raw);
   return appConfigSchema.parse(json);
 }
-

@@ -16,6 +16,10 @@ export interface TargetConfig {
   date: string; // YYYY-MM-DD
   selectors?: SelectorsConfig; // may include "{{date}}" placeholder
   textHints?: TextHintsConfig;
+  // HND等、カレンダーセルのIDから判定する場合
+  elementIdTemplate?: string; // e.g. "0-0-{{date}}"
+  elementIdDateStyle?: "dash" | "slash"; // how to inject date in template (YYYY-MM-DD vs YYYY/MM/DD)
+  classHints?: TextHintsConfig; // class属性に含まれる語で判定
   waitUntil?: "load" | "domcontentloaded" | "networkidle";
   waitForSelector?: string; // optional selector to wait for
 }
@@ -34,4 +38,3 @@ export interface EnvConfig {
 export interface StateSnapshot {
   lastNotified: Record<string, { status: Status; at: string }>; // key: parking_id|date
 }
-

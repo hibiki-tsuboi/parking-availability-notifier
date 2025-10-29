@@ -15,7 +15,8 @@ async function main() {
     const key = `${t.parking_id}|${t.date}`;
 
     if (shouldNotify(state, key, status)) {
-      const msg = `駐車場: ${t.parking_id}\n日付: ${t.date}\nステータス: ${status}\nURL: ${t.url}`;
+      const jp = status === "full" ? "満車" : status === "available" ? "空車" : "不明";
+      const msg = `駐車場: ${t.parking_id}\n日付: ${t.date}\nステータス: ${jp} (${status})\nURL: ${t.url}`;
       await notifySlack(env.slackWebhookUrl, msg);
       markNotified(state, key, status);
       notifiedCount += 1;
@@ -33,4 +34,3 @@ main().catch((err) => {
   console.error(err);
   process.exitCode = 1;
 });
-
