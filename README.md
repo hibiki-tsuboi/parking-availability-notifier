@@ -31,7 +31,7 @@
   - `elementIdDateStyle`: `slash`（`YYYY/MM/DD` へ変換して埋め込み）
   - `classHints`: クラス名に含まれる語で available/full を判定
 - 実行: `node --loader ts-node/esm src/index.ts`
-- 動作: 要素IDの class を解析して available の場合のみ Slack 通知（重複抑止）
+- 動作: 要素IDの class を解析し、満車/空車いずれも「初回＋変化時」に Slack 通知（同一ステータスは重複抑止）
 
 ## GitHub Actions（スケジュール実行）
 - リポジトリ Secrets に `SLACK_WEBHOOK_URL` を登録

@@ -23,12 +23,11 @@ export function writeState(filePath: string, state: StateSnapshot): void {
 
 export function shouldNotify(state: StateSnapshot, key: string, status: Status): boolean {
   const prev = state.lastNotified[key]?.status;
-  // 通知ポリシー: available のときのみ通知。重複は抑止。
-  if (status !== "available") return false;
-  return prev !== "available";
+  // 通知ポリシー: 満車/空車のいずれも通知し、同一ステータスは重複抑止。unknown は通知しない。
+  if (status === "unknown") return false;
+  return prev !== status;
 }
 
 export function markNotified(state: StateSnapshot, key: string, status: Status): void {
   state.lastNotified[key] = { status, at: new Date().toISOString() };
 }
-
