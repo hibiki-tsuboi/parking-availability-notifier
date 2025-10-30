@@ -15,6 +15,14 @@
       "elementIdTemplate": "0-0-{{date}}",
       "elementIdDateStyle": "slash",
       "waitUntil": "domcontentloaded"
+    },
+    {
+      "parking_id": "hnd-lot",
+      "url": "https://hnd-rsv.aeif.or.jp/airport2/app/toppage",
+      "date": "2025-11-01",
+      "elementIdTemplate": "0-0-{{date}}",
+      "elementIdDateStyle": "slash",
+      "waitUntil": "domcontentloaded"
     }
   ]
 }
