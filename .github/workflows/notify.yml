@@ -2,7 +2,7 @@ name: Check parking availability
 
 on:
   schedule:
-    - cron: "0 * * * *" # 1時間毎
+    - cron: "0 */12 * * *" # 12時間ごとに実行 (0:00 UTC と 12:00 UTC / 9:00 JST と 21:00 JST)
   workflow_dispatch: {}
 
 jobs:
