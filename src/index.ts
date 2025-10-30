@@ -17,13 +17,15 @@ async function main() {
     if (shouldNotify(state, key, status, { always: env.notifyAlways })) {
       const jp = status === "full" ? "満車" : status === "available" ? "空車" : "不明";
       const emoji = status === "full" ? ":x:" : status === "available" ? ":white_check_mark:" : ":question:";
-      const msg = [
-        env.slackMention ?? undefined,
+      const msgParts = [
         `ステータス: ${emoji} ${jp}`,
         `日付: ${t.date}`,
         `URL: ${t.url}`,
-      ].join("\n");
-      await notifySlack(env.slackWebhookUrl, msg);
+      ];
+      const msg = env.slackMention 
+        ? `${env.slackMention}\n${msgParts.join("\n")}`
+        : msgParts.join("\n");
+      await notifySlack(env.slackWebhookUrl, msg, { mention: env.slackMention });
       markNotified(state, key, status);
       notifiedCount += 1;
       console.log(`[notify] ${key} -> ${status}`);

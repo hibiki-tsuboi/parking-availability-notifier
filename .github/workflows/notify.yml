@@ -37,6 +37,7 @@ jobs:
       - name: Run notifier
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MENTION_ID: ${{ vars.SLACK_MENTION_ID }}
           TARGET_CONFIG: config/targets.json
           STATE_FILE: data/state.json
           PLAYWRIGHT_HEADLESS: "true"
