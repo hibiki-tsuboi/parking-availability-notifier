@@ -40,6 +40,7 @@ jobs:
           TARGET_CONFIG: config/targets.json
           STATE_FILE: data/state.json
           PLAYWRIGHT_HEADLESS: "true"
+          NOTIFY_ALWAYS: "true"
         run: node --loader ts-node/esm src/index.ts
 
       - name: Save state cache
