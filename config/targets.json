@@ -3,7 +3,7 @@
     {
       "parking_id": "hnd-lot",
       "url": "https://hnd-rsv.aeif.or.jp/airport2/app/toppage",
-      "date": "2025-10-30",
+      "date": "2025-11-22",
       "elementIdTemplate": "0-0-{{date}}",
       "elementIdDateStyle": "slash",
       "waitUntil": "domcontentloaded"
@@ -11,7 +11,7 @@
     {
       "parking_id": "hnd-lot",
       "url": "https://hnd-rsv.aeif.or.jp/airport2/app/toppage",
-      "date": "2025-10-31",
+      "date": "2025-11-23",
       "elementIdTemplate": "0-0-{{date}}",
       "elementIdDateStyle": "slash",
       "waitUntil": "domcontentloaded"
@@ -19,7 +19,7 @@
     {
       "parking_id": "hnd-lot",
       "url": "https://hnd-rsv.aeif.or.jp/airport2/app/toppage",
-      "date": "2025-11-01",
+      "date": "2025-11-24",
       "elementIdTemplate": "0-0-{{date}}",
       "elementIdDateStyle": "slash",
       "waitUntil": "domcontentloaded"
