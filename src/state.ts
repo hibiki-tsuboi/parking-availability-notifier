@@ -26,7 +26,9 @@ export function shouldNotify(state: StateSnapshot, key: string, status: Status, 
   // 通知ポリシー: 満車/空車のいずれも通知し、同一ステータスは重複抑止。unknown は通知しない。
   if (status === "unknown") return false;
   
-  if (key.endsWith("|2025-11-22") && status === "full") {
+  const datesWithNoFullNotification = ["2025-11-22", "2025-11-23", "2025-11-24"];
+  const shouldBlockFull = datesWithNoFullNotification.some(date => key.endsWith(`|${date}`));
+  if (shouldBlockFull && status === "full") {
     return false;
   }
   
