@@ -26,6 +26,11 @@ export function shouldNotify(state: StateSnapshot, key: string, status: Status, 
   // 通知ポリシー: 満車/空車のいずれも通知し、同一ステータスは重複抑止。unknown は通知しない。
   if (status === "unknown") return false;
   if (opts?.always) return true;
+  
+  if (key.includes("|2025-11-22")) {
+    if (status !== "available") return false;
+  }
+  
   return prev !== status;
 }
 
